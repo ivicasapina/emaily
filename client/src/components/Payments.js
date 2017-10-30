@@ -7,7 +7,6 @@ const key = process.env.REACT_APP_STRIPE_KEY;
 
 class Payments extends Component {
   render() {
-    console.log(key);
     return (
       <StripeCheckout
         name="Emaily"
