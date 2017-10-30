@@ -1,11 +1,12 @@
 //********************************************************
-//            INITIAL SERVER APPLICATION SETUP
+//            INITIAL SERVER(Backend) APPLICATION SETUP
 //******************************************************** 
 
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 require('./models/User');
 require('./services/passport');      // samo se izvede cim se pokrene index.js
@@ -14,6 +15,7 @@ mongoose.connect(keys.mongoURI);
 
 const app = express();
 
+app.use(bodyParser.json());
 // cookie setup
 app.use(
   cookieSession({
@@ -25,6 +27,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
+
+// connecting to frontend routes
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 
