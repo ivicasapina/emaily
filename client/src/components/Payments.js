@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import StripeCheckout from 'react-stripe-checkout';
 import * as actions from '../actions';
-const key = 'pk_test_sN3mn431fRTHwpKrOVFhab7k';
+
+const key = process.env.REACT_APP_STRIPE_KEY;
 
 class Payments extends Component {
   render() {
+    console.log(key);
     return (
       <StripeCheckout
         name="Emaily"
