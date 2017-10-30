@@ -11,8 +11,7 @@ class Payments extends Component {
         description="$5 for 5 survey credits"
         amount={500}
         token={token => this.props.handleToken(token)}
-        stripeKey={process.env.REACT_APP_STRIPE_KEY}
-        locale="en-US"
+        stripeKey={pk_test_sN3mn431fRTHwpKrOVFhab7k}
       >
         <button className="btn">Add Credits</button>
       </StripeCheckout>
