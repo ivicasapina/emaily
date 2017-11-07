@@ -1,6 +1,6 @@
 //********************************************************
 //            INITIAL SERVER(Backend) APPLICATION SETUP
-//******************************************************** 
+//********************************************************
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -9,7 +9,8 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
 require('./models/User');
-require('./services/passport');      // samo se izvede cim se pokrene index.js
+require('./models/Survey');
+require('./services/passport'); // samo se izvede cim se pokrene index.js
 
 mongoose.connect(keys.mongoURI);
 
@@ -20,7 +21,7 @@ app.use(bodyParser.json());
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000, // trajanje cookija
-    keys: [keys.cookieKey]            // cookie enkripcija
+    keys: [keys.cookieKey] // cookie enkripcija
   })
 );
 app.use(passport.initialize());
@@ -28,6 +29,7 @@ app.use(passport.session());
 
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 // connecting to frontend routes
 if (process.env.NODE_ENV === 'production') {

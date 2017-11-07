@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import StripeCheckout from 'react-stripe-checkout';
 import * as actions from '../actions';
 
-const key = process.env.REACT_APP_STRIPE_KEY;
-
 class Payments extends Component {
   render() {
     return (
@@ -13,9 +11,11 @@ class Payments extends Component {
         description="$5 for 5 survey credits"
         amount={500}
         token={token => this.props.handleToken(token)}
-        stripeKey={key}
+        stripeKey={process.env.REACT_APP_STRIPE_KEY}
       >
-        <button className="btn">Add Credits</button>
+        <button className="btn">
+          Add Credits
+        </button>
       </StripeCheckout>
     );
   }

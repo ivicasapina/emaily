@@ -10,6 +10,10 @@ import { Provider } from 'react-redux';
 import App from './components/App';
 import configureStore from './store/configureStore';
 
+// Development only axios helpers
+import axios from 'axios';
+window.axios = axios;
+
 const store = configureStore();
 
 ReactDOM.render(
